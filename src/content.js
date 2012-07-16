@@ -3,20 +3,8 @@ WetBanana = (function() {
 
   // === Options ===
 
-  var options = {debug:true}
+  var options = {debug:false}
   
-  var port = chrome.extension.connect()
-  port.onMessage.addListener(function(msg) {
-    if (msg.saveOptions) {
-      options = msg.saveOptions
-      options.cursor = (options.cursor == "true")
-      options.notext = (options.notext == "true")
-      options.debug = (options.debug == "true")
-      debug("saveOptions: ",options)
-    }
-  })
-
-
   // === Debuggering ===
 
   function debug() {
@@ -24,6 +12,8 @@ WetBanana = (function() {
       console.debug.apply(console,["WB:"].concat(Array.prototype.slice.call(arguments)))
     }
   }
+
+  debug('injected wet banana');
 
   const DEBUG_INTERVAL = 100
   var lastDebug = 0
@@ -37,6 +27,21 @@ WetBanana = (function() {
       }
     }
   }
+
+debug(safari);
+  //var port = chrome.extension.connect()
+  function handleMsg(e) {
+    debug('got options:', e);
+    if (e.name == "message") {
+      options = e.message.saveOptions
+      options.cursor = (options.cursor == "true")
+      options.notext = (options.notext == "true")
+      options.debug = (options.debug == "true")
+      debug("saveOptions: ",options)
+    }
+  }
+  safari.self.addEventListener("message", handleMsg, false);
+  safari.self.tab.dispatchMessage("message"); // ping, to get settings
 
   
   // === Util ===
