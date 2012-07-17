@@ -4,7 +4,7 @@
 <array>
 	<dict>
 		<key>DefaultValue</key>
-		<real>0.0</real>
+		<real>1</real>
 		<key>Key</key>
 		<string>button</string>
 		<key>Title</key>
@@ -25,6 +25,68 @@
 		</array>
 	</dict>
 	<dict>
+		<key>Title</key>
+		<string>Hold key</string>
+		<key>Type</key>
+		<string>Group</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>key_shift</string>
+		<key>Title</key>
+		<string>shift (⇧)                      </string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>key_alt</string>
+		<key>Title</key>
+		<string>alt (⌥)                         </string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>key_meta</string>
+		<key>Title</key>
+		<string>cmd (⌘)                       </string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>key_ctrl</string>
+		<key>Title</key>
+		<string>ctrl (⌃)                         </string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+	<dict>
+		<key>Type</key>
+		<string>Separator</string>
+	</dict>
+	<dict>
+		<key>Title</key>
+		<string>hey</string>
+		<key>Type</key>
+		<string>Group</string>
+	</dict>
+	<dict>
+		<key>Title</key>
+		<string>Movement</string>
+		<key>Type</key>
+		<string>Group</string>
+	</dict>
+	<dict>
 		<key>DefaultValue</key>
 		<real>1</real>
 		<key>Key</key>
@@ -32,9 +94,9 @@
 		<key>MaximumValue</key>
 		<real>10</real>
 		<key>MinimumValue</key>
-		<real>0.10000000000000001</real>
+		<real>1</real>
 		<key>StepValue</key>
-		<real>0.10000000000000001</real>
+		<real>0.5</real>
 		<key>Title</key>
 		<string>Scaling</string>
 		<key>Type</key>
@@ -42,13 +104,13 @@
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
-		<real>6000</real>
+		<real>10000</real>
 		<key>Key</key>
 		<string>speed</string>
 		<key>MaximumValue</key>
 		<real>100000</real>
 		<key>MinimumValue</key>
-		<real>1</real>
+		<real>0.0</real>
 		<key>StepValue</key>
 		<real>100</real>
 		<key>Title</key>
@@ -61,8 +123,12 @@
 		<real>5</real>
 		<key>Key</key>
 		<string>friction</string>
+		<key>MaximumValue</key>
+		<real>26</real>
 		<key>MinimumValue</key>
 		<real>1</real>
+		<key>StepValue</key>
+		<real>2.5</real>
 		<key>Title</key>
 		<string>Friction</string>
 		<key>Type</key>
@@ -70,65 +136,27 @@
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
-		<string>alt</string>
+		<false/>
 		<key>Key</key>
-		<string>keys</string>
-		<key>Title</key>
-		<string>Hold keys</string>
-		<key>Titles</key>
-		<array>
-			<string>shift</string>
-			<string>alt</string>
-			<string>cmd</string>
-		</array>
-		<key>Type</key>
-		<string>Group</string>
-		<key>Values</key>
-		<array>
-			<real>1</real>
-			<real>2</real>
-			<real>3</real>
-		</array>
+		<string>debug</string>
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
 		<false/>
 		<key>Key</key>
-		<string>key_shift</string>
+		<string>notext</string>
 		<key>Title</key>
-		<string>⇧ shift</string>
+		<string>Allow text selection</string>
 		<key>Type</key>
-		<string>CheckBox</string>
+		<string>Hidden</string>
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
-		<false/>
+		<true/>
 		<key>Key</key>
-		<string>key_alt</string>
-		<key>Title</key>
-		<string>⌥ alt   </string>
-		<key>Type</key>
-		<string>CheckBox</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
+		<string>cursor</string>
+		<key>Secure</key>
 		<false/>
-		<key>Key</key>
-		<string>key_meta</string>
-		<key>Title</key>
-		<string>⌘ cmd</string>
-		<key>Type</key>
-		<string>CheckBox</string>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<false/>
-		<key>Key</key>
-		<string>key_ctrl</string>
-		<key>Title</key>
-		<string>⌃ ctrl  </string>
-		<key>Type</key>
-		<string>CheckBox</string>
 	</dict>
 </array>
 </plist>
