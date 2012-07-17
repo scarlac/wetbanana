@@ -3,7 +3,7 @@ WetBanana = (function() {
 
   // === Options ===
 
-  var options = {debug:false}
+  var options = {debug:true}
   
   // === Debuggering ===
 
@@ -30,18 +30,18 @@ WetBanana = (function() {
 
 debug(safari);
   //var port = chrome.extension.connect()
-  function handleMsg(e) {
+  function handleTabMessage(e) {
     debug('got options:', e);
-    if (e.name == "message") {
-      options = e.message.saveOptions
+    if (e.name == "options") {
+      options = e.message.options
       options.cursor = (options.cursor == "true")
       options.notext = (options.notext == "true")
       options.debug = (options.debug == "true")
-      debug("saveOptions: ",options)
+      debug("options: ",options)
     }
   }
-  safari.self.addEventListener("message", handleMsg, false);
-  safari.self.tab.dispatchMessage("message"); // ping, to get settings
+  safari.self.addEventListener("message", handleTabMessage, false);
+  safari.self.tab.dispatchMessage("options"); // ping, to get settings
 
   
   // === Util ===

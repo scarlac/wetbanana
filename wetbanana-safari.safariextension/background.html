@@ -1,65 +1,58 @@
 
 <html><head><script type="text/javascript">
 
-defaultOptions = { "button":    0,
-                   "key_shift": false,
-                   "key_ctrl":  false,
-                   "key_alt":   false,
-                   "key_meta":  true,
-                   "scaling":   1.5,
-                   "speed":     6000,
-                   "friction":  5,
-                   "cursor":    true,
-                   "notext":    false,
-                   "debug":     false
-                 }
-
-for (var k in defaultOptions)
-  if (typeof localStorage[k] == 'undefined')
-    localStorage[k] = defaultOptions[k]
-
+defaultOptions = { "button": 0,
+	"key_shift": false,
+	"key_ctrl":  false,
+	"key_alt":   false,
+	"key_meta":  true,
+	"scaling":   1.5,
+	"speed":     6000,
+	"friction":  5,
+	"cursor":    true,
+	"notext":    false,
+	"debug":     false
+ }
 
 function loadOptions() {
-  var o = {}
-  for (var k in defaultOptions) o[k] = localStorage[k]
-  return o
+	var o = {}
+	for (var k in defaultOptions)
+		o[k] = localStorage[k]
+	return o
 }
 
-clients = {}
+// Communication of options between injected scripts and global
+function handleGlobalMessage(e) {
+	if(safari.extension.settings.button !== undefined)
+		defaultOptions.button = safari.extension.settings.button-1;
+	if(safari.extension.settings.key_shift !== undefined)
+		defaultOptions.key_shift = safari.extension.settings.key_shift;
 
-function dispatchSettings(e) {
-  console.debug('dispatching settings to content script', defaultOptions, e);
-  e.target.page.dispatchMessage("message", { saveOptions: defaultOptions })
-  /*var id = port.portId_
-  console.log("connect: "+id)
-  clients[id] = port
-  port.onDisconnect.addListener(function() {
-    console.log("disconnect: "+id)
-    delete clients[id]
-  })*/
+	console.debug('dispatching settings to content script', defaultOptions, e);
+	e.target.page.dispatchMessage("options", { options: defaultOptions })
 }
-safari.application.addEventListener("message", dispatchSettings, false);
+safari.application.addEventListener("message", handleGlobalMessage, false);
+
+// Settings listener
+safari.extension.settings.addEventListener("change", function(e) {
+	console.debug('setting '+e.key+' changed from '+e.oldValue+' to '+e.newValue, e);
+	defaultOptions[e.key] = e.newValue;
+
+	safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("options", { options: defaultOptions })
+	for(var w in safari.application.browserWindows) {
+		for(var t in safari.application.browserWindows[w]) {
+			safari.application.browserWindows[w].tabs[t].page.dispatchMessage("options", { options: defaultOptions });
+		}
+	}
+
+}, false);
 
 function saveOptions(o) {
-  for (var k in o) {
-    localStorage[k] = o[k]
-  }
+	for (var k in o) {
+		localStorage[k] = o[k]
+	}
 
-  /*for (var id in clients) {
-    clients[id].postMessage({ saveOptions: localStorage })
-  }*/
-  safari.self.tab.dispatchMessage("message", { saveOptions: localStorage });
+	safari.self.tab.dispatchMessage("message", { options: localStorage });
 }
-
-// Inject content script into all existing tabs (doesn't work)
-/*
-chrome.windows.getAll({populate:true}, function(wins) {
-  wins.forEach(function(win) {
-    win.tabs.forEach(function(tab) {
-      chrome.tabs.executeScript(tab.id,{file:"content.js",allFrames:true});
-    })
-  })
-})
-*/
 
 </script></head><body></body></html>
