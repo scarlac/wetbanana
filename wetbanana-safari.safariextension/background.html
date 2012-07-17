@@ -1,58 +1,52 @@
 
 <html><head><script type="text/javascript">
 
-defaultOptions = { "button": 0,
-	"key_shift": false,
-	"key_ctrl":  false,
-	"key_alt":   false,
-	"key_meta":  true,
-	"scaling":   1.5,
-	"speed":     6000,
-	"friction":  5,
-	"cursor":    true,
-	"notext":    false,
-	"debug":     false
- }
+// global settings
+options = {};
 
 function loadOptions() {
-	var o = {}
-	for (var k in defaultOptions)
-		o[k] = localStorage[k]
-	return o
+	options = {
+		"button":    safari.extension.settings.button-1, // we can't use 0 in settings due to a bug in Extension Builder not allowing 0
+		"key_shift": safari.extension.settings.key_shift,
+		"key_ctrl":  safari.extension.settings.key_ctrl,
+		"key_alt":   safari.extension.settings.key_alt,
+		"key_meta":  safari.extension.settings.key_meta,
+		"scaling":   safari.extension.settings.scaling,
+		"speed":     safari.extension.settings.speed,
+		"friction":  safari.extension.settings.friction,
+		"cursor":    safari.extension.settings.cursor,
+		"notext":    safari.extension.settings.notext,
+		"debug":     safari.extension.settings.debug
+	 }
 }
 
-// Communication of options between injected scripts and global
-function handleGlobalMessage(e) {
-	if(safari.extension.settings.button !== undefined)
-		defaultOptions.button = safari.extension.settings.button-1;
-	if(safari.extension.settings.key_shift !== undefined)
-		defaultOptions.key_shift = safari.extension.settings.key_shift;
+// Listen for injected scripts that needs the current settings
+safari.application.addEventListener("message", function(e) {
+	if(e.name == "options") {
+		loadOptions();
+		e.target.page.dispatchMessage("options", { options: options })
 
-	console.debug('dispatching settings to content script', defaultOptions, e);
-	e.target.page.dispatchMessage("options", { options: defaultOptions })
-}
-safari.application.addEventListener("message", handleGlobalMessage, false);
+		if(options.debug)
+			console.debug('dispatching settings to content script', options, e);
+	} else {
+		if(options.debug)
+			console.debug('ignored unknown event', e);
+	}
+}, false);
 
-// Settings listener
+// Listen for settings changes via Safari Preferences
 safari.extension.settings.addEventListener("change", function(e) {
-	console.debug('setting '+e.key+' changed from '+e.oldValue+' to '+e.newValue, e);
-	defaultOptions[e.key] = e.newValue;
+	if(options.debug)
+		console.debug('setting '+e.key+' changed from '+e.oldValue+' to '+e.newValue, e);
+	
+	loadOptions();
 
-	safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("options", { options: defaultOptions })
 	for(var w in safari.application.browserWindows) {
-		for(var t in safari.application.browserWindows[w]) {
-			safari.application.browserWindows[w].tabs[t].page.dispatchMessage("options", { options: defaultOptions });
+		for(var t in safari.application.browserWindows[w].tabs) {
+			safari.application.browserWindows[w].tabs[t].page.dispatchMessage("options", { options: options });
 		}
 	}
 
 }, false);
-
-function saveOptions(o) {
-	for (var k in o) {
-		localStorage[k] = o[k]
-	}
-
-	safari.self.tab.dispatchMessage("message", { options: localStorage });
-}
 
 </script></head><body></body></html>
