@@ -5,11 +5,11 @@
 	<key>Author</key>
 	<string>Seph Soliman</string>
 	<key>Builder Version</key>
-	<string>7534.57.2</string>
+	<string>7536.19</string>
 	<key>CFBundleDisplayName</key>
-	<string>Wet Banana</string>
+	<string>Grab and Scroll</string>
 	<key>CFBundleIdentifier</key>
-	<string>dk.seph.wetbanana-safari</string>
+	<string>dk.seph.grab-and-scroll</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
@@ -32,7 +32,7 @@
 		</dict>
 	</dict>
 	<key>Description</key>
-	<string>Click-and-drag scrolling like in Acrobat Reader, Photoshop and more</string>
+	<string>Click-and-drag scrolling anywhere on the page like Acrobat Reader, Photoshop and many more</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
@@ -45,7 +45,9 @@
 			<string>All</string>
 		</dict>
 	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://www.seph.dk/grab-and-scroll/Manifest.plist</string>
 	<key>Website</key>
-	<string>http://www.seph.dk</string>
+	<string>http://www.seph.dk/grab-and-scroll/</string>
 </dict>
 </plist>

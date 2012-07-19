@@ -7,7 +7,7 @@
    <array>
      <dict>
        <key>CFBundleIdentifier</key>
-       <string>dk.seph.wetbanana-safari</string>
+       <string>dk.seph.grab-and-scroll</string>
        <key>Developer Identifier</key>
        <string>7HJ894LG96</string>
        <key>CFBundleVersion</key>
@@ -15,7 +15,7 @@
        <key>CFBundleShortVersionString</key>
        <string>1.0</string>
        <key>URL</key>
-       <string>http://www.seph.dk/wetbanana-safari/wetbanana-safari.safariextz</string>
+       <string>http://www.seph.dk/grab-and-scroll/grab-and-scroll.safariextz</string>
      </dict>
    </array>
 </dict>
