@@ -15,7 +15,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -48,6 +48,6 @@
 	<key>Update Manifest URL</key>
 	<string>http://www.seph.dk/grab-and-scroll/Manifest.plist</string>
 	<key>Website</key>
-	<string>http://www.seph.dk/grab-and-scroll/</string>
+	<string>http://www.seph.dk/blog/grab-and-scroll/</string>
 </dict>
 </plist>
