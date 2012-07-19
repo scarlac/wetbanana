@@ -477,7 +477,7 @@ WetBanana = (function() {
   function startDrag(ev) {
     debug("drag start")
     activity = DRAG
-    if (options.cursor) document.body.style.cursor = "move"
+    if (options.cursor) document.body.style.cursor = "-webkit-grabbing"
     Scroll.start(dragElement)
     return updateDrag(ev)
   }
